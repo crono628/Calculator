@@ -1,0 +1,24 @@
+.body {
+  width: 70vw;
+  margin: auto;
+  background-color: skyblue;
+}
+
+.calculator {
+  width: 70vw;
+  height: 90vh;
+  margin: auto;
+  background-color: gray;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+  box-sizing: border-box;
+}
+
+.buttons{
+    padding-top: 10px;
+    display: inline-grid;
+    grid-template-columns: repeat(16, 2fr);
+    grid-template-rows: repeat(16, 2fr);
+    height:70vh;
+    width: 80vw;
+}
