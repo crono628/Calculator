@@ -4,21 +4,19 @@
   background-color: skyblue;
 }
 
-.calculator {
-  width: 70vw;
-  height: 90vh;
-  margin: auto;
-  background-color: gray;
-  display: grid;
-  grid-template-rows: 1fr 4fr;
-  box-sizing: border-box;
-}
+
 
 .buttons{
-    padding-top: 10px;
-    display: inline-grid;
-    grid-template-columns: repeat(16, 2fr);
-    grid-template-rows: repeat(16, 2fr);
-    height:70vh;
-    width: 80vw;
+    font-size: 40px;
+    min-height: 300px;
+    width: 100%;
+    background: LightGray;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1fr);
+    grid-gap: 10px;
+    justify-content: center;
+    border-style: solid;
+    border-color: black;
+    
 }
