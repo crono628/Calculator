@@ -2,12 +2,18 @@ const btn = document.querySelectorAll('.btn, .operatorBtn');
 const output = document.querySelector('#output');
 const clearBtn = document.querySelector('#clearBtn');
 const equalsBtn = document.querySelector('#equalsBtn');
-const operatorBtn = document.querySelectorAll('.operatorBtn')
+const operatorBtn = document.querySelectorAll('.operatorBtn');
+const display = document.querySelector('#display')
+
+let array = [];
 
 let num = btn.forEach((button) => {
   button.addEventListener('click', () => {
     output.textContent += `${button.textContent}`;
-    console.log(`${output.textContent}`)
+    display.textContent += button.textContent
+    // console.log(`${output.textContent}`)
+    array.push(output.textContent);
+    console.log(display.textContent)
   });
 });
 
@@ -18,7 +24,7 @@ clearBtn.addEventListener('click', () => {
 });
 
 equalsBtn.addEventListener('click', () => {
-  operatorSelect(`${output.textContent}`);
+  operatorSelect(output.textContent);
 });
 
 let add = (a, b) => a + b;
@@ -43,6 +49,10 @@ let operatorSelect = function (operator, a, b) {
     default:
       return null;
   }
+}
+
+function logNum () {
+  array.push(output);
 }
 
 
