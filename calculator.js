@@ -4,11 +4,14 @@ const clearBtn = document.querySelector('#clearBtn');
 const equalsBtn = document.querySelector('#equalsBtn');
 const operatorBtn = document.querySelectorAll('.operatorBtn')
 
-btn.forEach((button) => {
+let num = btn.forEach((button) => {
   button.addEventListener('click', () => {
     output.textContent += `${button.textContent}`;
+    console.log(`${output.textContent}`)
   });
 });
+
+console.log(num)
 
 clearBtn.addEventListener('click', () => {
   output.textContent = "";

@@ -24,10 +24,12 @@
   align-self: center;
   border-style: solid;
   border-color: black;
+  flex-shrink: 5
 }
 
 button {
   font-size: 0.44em;
+  flex-shrink: 5
 }
 
 #clearBtn {
@@ -36,6 +38,7 @@ button {
   margin-top: 1px;
   align-self: flex-end;
   background-color: rgb(202, 87, 87);
+  flex-shrink: 5
 }
 
 #output {
@@ -50,5 +53,6 @@ button {
   font-size: .3em;
   justify-content: flex-end;
   font-family: 'Press Start 2P', cursive;
+  flex-shrink: 5
   /* flex-wrap: wrap; */
 }
