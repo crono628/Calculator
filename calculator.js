@@ -1,21 +1,22 @@
-// const output = document.querySelector('#output').textContent;
+const btn = document.querySelectorAll('.btn, .operatorBtn');
+const output = document.querySelector('#output');
+const clearBtn = document.querySelector('#clearBtn');
+const equalsBtn = document.querySelector('#equalsBtn');
+const operatorBtn = document.querySelectorAll('.operatorBtn')
 
-const btn = document.querySelectorAll('#output');
-btn.forEach((option) => {
-  let array = []
-  option.addEventListener('click', function () {
-    output = this.textContent
-    array.push(output)
+btn.forEach((button) => {
+  button.addEventListener('click', () => {
+    output.textContent += `${button.textContent}`;
   });
-  console.log(array)
 });
 
+clearBtn.addEventListener('click', () => {
+  output.textContent = "";
+});
 
-
-
-// console.log(btnPress())
-
-
+equalsBtn.addEventListener('click', () => {
+  operatorSelect(`${output.textContent}`);
+});
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -36,7 +37,10 @@ let operatorSelect = function (operator, a, b) {
       } else {
         return divide(a, b);
       }
-      default:
-        return null;
+    default:
+      return null;
   }
 }
+
+
+
