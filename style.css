@@ -2,21 +2,49 @@
   width: 70vw;
   margin: auto;
   background-color: skyblue;
+  flex-shrink: 5;
+  justify-content: center;
 }
 
+.buttonContainer {
+  margin-top: 10%;
+  font-size: 5em;
+  padding: 2%;
+  min-height: 100px;
+  width: 75%;
+  background: LightGray;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-gap: 10px;
+  justify-content: center;
+  align-self: center;
+  border-style: solid;
+  border-color: black;
+}
 
+button {
+  font-size: 0.44em;
+}
 
-.buttons{
-    font-size: 40px;
-    min-height: 300px;
-    width: 100%;
-    background: LightGray;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(1fr);
-    grid-gap: 10px;
-    justify-content: center;
-    border-style: solid;
-    border-color: black;
-    
+#clearbtn {
+  grid-area: 2/1/4/5;
+  height: 60%;
+  margin-top: 1px;
+  align-self: flex-end;
+  background-color: rgb(202, 87, 87);
+}
+
+#output {
+  background-color: greenyellow;
+  opacity: 64%;
+  min-height: 50px;
+  grid-area: 1/1/4/5;
+  padding: 2%;
+  margin-bottom: 70px;
+  border-style: solid;
+  display: flex;
+  font-size: .3em;
+  justify-content: flex-end;
+  font-family: 'Press Start 2P', cursive;
 }

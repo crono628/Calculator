@@ -1,3 +1,22 @@
+// const output = document.querySelector('#output').textContent;
+
+const btn = document.querySelectorAll('#output');
+btn.forEach((option) => {
+  let array = []
+  option.addEventListener('click', function () {
+    output = this.textContent
+    array.push(output)
+  });
+  console.log(array)
+});
+
+
+
+
+// console.log(btnPress())
+
+
+
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
@@ -17,12 +36,7 @@ let operatorSelect = function (operator, a, b) {
       } else {
         return divide(a, b);
       }
-    default:
-      return null;
+      default:
+        return null;
   }
 }
-
-
-
-console.log(operatorSelect('+', 15,25))
-console.log('test')
