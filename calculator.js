@@ -1,31 +1,61 @@
 const btn = document.querySelectorAll('.btn, .operatorBtn');
 const output = document.querySelector('#output');
 const clearBtn = document.querySelector('#clearBtn');
-const equalsBtn = document.querySelector('#equalsBtn');
+const equalsBtn = document.querySelectorAll('#equalsBtn');
 const operatorBtn = document.querySelectorAll('.operatorBtn');
-const display = document.querySelector('#display')
+let readyForB = false;
 
-let array = [];
+let calculatorObj = {
+  operandA: 0,
+  operandB: 0,
+  operatorObj: null
+}
 
-let num = btn.forEach((button) => {
+btn.forEach((button) => {
   button.addEventListener('click', () => {
-    output.textContent += `${button.textContent}`;
-    display.textContent += button.textContent
-    // console.log(`${output.textContent}`)
-    array.push(output.textContent);
-    console.log(display.textContent)
+    output.textContent += button.textContent;
   });
 });
 
-console.log(num)
+operatorBtn.forEach((button) => {
+  button.addEventListener('click', () => {
+    operatorBtn.textContent = calculatorObj.operatorObj;
+    readyForB = true;
+    logNum()
+    console.log(calculatorObj);
+  })
+})
 
 clearBtn.addEventListener('click', () => {
   output.textContent = "";
+  reset();
+  console.log(readyForB);
 });
 
-equalsBtn.addEventListener('click', () => {
-  operatorSelect(output.textContent);
+equalsBtn.forEach((button) => {
+  button.addEventListener('click', () => {
+    operatorSelect(calculatorObj.operatorObj, calculatorObj.operandA, calculatorObj.operandB);
+  })
 });
+
+function logNum() {
+  if (readyForB = false) {
+    calculatorObj.operandA = output.textContent;
+  }
+  if (readyForB = true) {
+    calculatorObj.operandB = output.textContent;
+  }
+  console.log(readyForB);
+}
+
+function reset() {
+  readyForB: false
+  calculatorObj = {
+    operandA: 0,
+    operandB: 0,
+    operatorObj: null
+  }
+}
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -46,14 +76,7 @@ let operatorSelect = function (operator, a, b) {
       } else {
         return divide(a, b);
       }
-    default:
-      return null;
+      default:
+        return null;
   }
 }
-
-function logNum () {
-  array.push(output);
-}
-
-
-
