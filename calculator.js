@@ -3,33 +3,45 @@ const output = document.querySelector('#output');
 const clearBtn = document.querySelector('#clearBtn');
 const equalsBtn = document.querySelectorAll('#equalsBtn');
 const operatorBtn = document.querySelectorAll('.operatorBtn');
-let readyForB = false;
 
-let calculatorObj = {
-  operandA: 0,
-  operandB: 0,
-  operatorObj: null
+let ready = true;
+
+function notReady() {
+  ready = false;
 }
+
+function isReady() {
+  ready = true;
+}
+
+
+let temp = [];
+let display = [];
+let calculation = [];
+let solution = [];
+
 
 btn.forEach((button) => {
   button.addEventListener('click', () => {
     output.textContent += button.textContent;
+    notReady()
+    console.log(ready)
   });
 });
 
 operatorBtn.forEach((button) => {
   button.addEventListener('click', () => {
-    operatorBtn.textContent = calculatorObj.operatorObj;
-    readyForB = true;
-    logNum()
-    console.log(calculatorObj);
+    operatorBtn.textContent = temp.push(), calculation.push();
+    isReady()
+    // logNum()
+    console.log(ready);
   })
 })
 
 clearBtn.addEventListener('click', () => {
   output.textContent = "";
   reset();
-  console.log(readyForB);
+  console.log(ready);
 });
 
 equalsBtn.forEach((button) => {
@@ -38,24 +50,7 @@ equalsBtn.forEach((button) => {
   })
 });
 
-function logNum() {
-  if (readyForB = false) {
-    calculatorObj.operandA = output.textContent;
-  }
-  if (readyForB = true) {
-    calculatorObj.operandB = output.textContent;
-  }
-  console.log(readyForB);
-}
 
-function reset() {
-  readyForB: false
-  calculatorObj = {
-    operandA: 0,
-    operandB: 0,
-    operatorObj: null
-  }
-}
 
 let add = (a, b) => a + b;
 let subtract = (a, b) => a - b;
@@ -66,17 +61,20 @@ let operatorSelect = function (operator, a, b) {
   switch (operator) {
     case '+':
       return add(a, b);
+      break;
     case '-':
       return subtract(a, b);
+       break;
     case '*':
       return multiply(a, b);
+       break;
     case '/':
       if (b === 0) {
         return 'ERROR';
+         break;
       } else {
         return divide(a, b);
+         break;
       }
-      default:
-        return null;
   }
 }
