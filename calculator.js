@@ -1,5 +1,6 @@
 const btn = document.querySelectorAll('.btn');
-const output = document.querySelector('#output');
+const upper = document.querySelector('.upper')
+const lower = document.querySelector('.lower')
 const clearBtn = document.querySelector('#clearBtn');
 const equalsBtn = document.querySelectorAll('#equalsBtn');
 const operatorBtn = document.querySelectorAll('.operatorBtn');
@@ -8,7 +9,7 @@ let ready = false;
 let display = [];
 let hold = [];
 let calculation = [];
-let solution = [];
+let operand = [];
 
 function notReady() {
   ready = false;
@@ -22,71 +23,85 @@ function allClear() {
   hold = [];
   display = [];
   calculation = [];
-  solution = [];
+  operand = [];
   notReady();
 }
 
 btn.forEach((button) => {
   button.addEventListener('click', () => {
     display.push(button.textContent);
-    hold.push(button.textContent);
-    calculation.unshift(hold.join(''))
-    
-    output.textContent = display.join('')
+
+    lower.textContent = display.join('')
     isReady();
-    // console.log(calculation);
-    // calculation.shift();
   });
 });
 
 operatorBtn.forEach((button) => {
   button.addEventListener('click', () => {
-    hold = [];
     if (ready == false) {
       return;
-    } else {
+    }
+    if (hold[0]) {
+      operand.push(display.join(''))
+      upper.textContent = hold[0]
       display.push(button.textContent);
-      // hold.push(button.textContent);
-      calculation.push(button.textContent);
-      output.textContent = display.join('');
+      calculation.push(button.textContent)
+      lower.textContent = '';
+      lower.textContent = doMath(calculation[0], hold[0], operand[1])
+      display = [];
       notReady();
-      console.log(calculation);
-
+    } else {
+      operand.push(display.join(''))
+      display.push(button.textContent);
+      calculation.push(button.textContent)
+      upper.textContent = display.join('');
+      lower.textContent = '';
+      display = [];
+      notReady();
     }
   })
 })
 
 clearBtn.addEventListener('click', () => {
-  output.textContent = "";
+  upper.textContent = '';
+  lower.textContent = '';
   allClear()
 });
 
 equalsBtn.forEach((button) => {
   button.addEventListener('click', () => {
-
-
+    operand.push(display.join(''))
+    upper.textContent = ''
+    lower.textContent = doMath(calculation[0], operand[0], operand[1])
+    hold.push(lower.textContent)
+    display = [];
+    calculation = [];
+    operand = [];
   })
 });
 
-let add = (a, b) => a + b;
-let subtract = (a, b) => a - b;
-let multiply = (a, b) => a * b;
-let divide = (a, b) => a / b;
+let add = (a, b) => parseFloat(a) + parseFloat(b);
+let subtract = (a, b) => parseFloat(a) - parseFloat(b);
+let multiply = (a, b) => parseFloat(a) * parseFloat(b);
+let divide = (a, b) => parseFloat(a) / parseFloat(b);
 
 let doMath = function (operator, a, b) {
-  switch (operator) {
-    case ' + ':
-      return add(a, b);
-    case ' - ':
-      return subtract(a, b);
-    case ' * ':
-      return multiply(a, b);
-    case ' / ':
-      if (b === 0) {
-        return 'ERROR';
-      } else {
-        return divide(a, b);
-      }
+  if (calculation[0] && operand[0]) {
+    switch (operator) {
+      case '+':
+        return add(a, b);
+      case '-':
+        return subtract(a, b);
+      case '*':
+        return multiply(a, b);
+      case '/':
+        if (b === 0) {
+          return 'ERROR';
+        } else {
+          return divide(a, b);
+        }
+    }
   }
 }
+
 
