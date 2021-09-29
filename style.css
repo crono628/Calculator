@@ -13,9 +13,9 @@ body {
   align-items: center;
 }
 
-.calculator{
+.calculator {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   min-height: 420px;
   width: 300px;
   position: absolute;
@@ -25,13 +25,13 @@ body {
   border-radius: 20px
 }
 
-.btn-div{
-min-height: 20px;
-display: flex;
-flex-wrap: wrap;
+.btn-div {
+  min-height: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-button{
+button {
   flex: 1 25%;
   padding: 10px;
   font-size: 25px;
@@ -39,39 +39,39 @@ button{
   border-radius: 10px;
 }
 
-.display{
+.display {
   width: 100%;
   min-height: 100px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  align-items:flex-end ;
+  align-items: flex-end;
   background-color: greenyellow;
   border-width: 5px 5px 0px 5px;
   border-style: solid;
   border-radius: 15px;
   border-color: gray;
-  font-family: 'Press Start 2P', cursive; 
+  font-family: 'Press Start 2P', cursive;
   padding: 10px;
   word-wrap: break-word;
   word-break: break-all;
 
 }
 
-.top-display{
-font-size: 10px;
-padding-bottom: 10px;
-position: relative;
-margin-bottom: 20px;
+.top-display {
+  font-size: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  margin-bottom: 20px;
 }
 
-.bottom-display{
-font-size: 20px;
+
+.bottom-display {
+  font-size: 20px;
 }
 
-.clear-btn{
- flex: 100%;
- margin-top: 20px;
- background-color: 
+.clear-btn {
+  flex: 100%;
+  margin-top: 20px;
+  background-color: rgb(252, 152, 152)
 }
-
