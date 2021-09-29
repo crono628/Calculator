@@ -3,16 +3,25 @@ const bottomDisplay = document.querySelector('.bottom-display')
 const operatorDisplay = document.querySelector('.operator')
 const topDisplay = document.querySelector('.digits')
 const operatorArray = ['+', '-', '*', '/']
+const decimalArray = ['.']
 let temp = 0
+let decimalGo = true
 
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     let buttonData = button.dataset.btn
     let calcData = button.dataset.calc
+    let decimalData = button.dataset.decimal
     bottomDisplay.innerText += buttonData
     let currentNumber = bottomDisplay.innerText
     let previousNumber = topDisplay.innerText
     let operator = operatorDisplay.innerText
+    if (decimalArray.includes(decimalData)) {
+      if (decimalGo === true) {
+        bottomDisplay.innerText += decimalData
+        decimalGo = false
+      }
+    }
     if (buttonData === 'c') {
       clear()
     }
@@ -23,6 +32,7 @@ buttons.forEach(button => {
         topDisplay.innerText = bottomDisplay.innerText
         operatorDisplay.innerText = calcData
         bottomDisplay.innerText = ''
+        decimalGo = true
       }
     }
     if (calcData === '=') {
@@ -31,40 +41,10 @@ buttons.forEach(button => {
         bottomDisplay.innerText = Math.round(temp * 10000) / 10000
         topDisplay.innerText = ''
         operatorDisplay.innerText = ''
-        console.log(typeof currentNumber)
+        decimalGo = true
       }
     }
   })
-})
-
-document.addEventListener('keydown', (e) => {
-  let currentNumber = bottomDisplay.innerText
-  let previousNumber = topDisplay.innerText
-  let operator = operatorDisplay.innerText
-  if (e.key >= 0 && e.key <= 9) {
-    return bottomDisplay.innerText += e.key
-  }
-  if (e.key == 'Backspace') {
-    clear()
-  }
-  if (operatorArray.includes(e.key)) {
-    if (bottomDisplay.innerText == 'ERROR') {
-      return
-    } else if (!operator) {
-      topDisplay.innerText = bottomDisplay.innerText
-      operatorDisplay.innerText = e.key
-      bottomDisplay.innerText = ''
-    }
-  }
-  if (e.key === 'Enter') {
-    if (previousNumber && currentNumber) {
-      temp = calculate(operator, previousNumber, currentNumber)
-      bottomDisplay.innerText = Math.round(temp * 10000) / 10000
-      topDisplay.innerText = ''
-      operatorDisplay.innerText = ''
-      console.log(typeof currentNumber)
-    }
-  }
 })
 
 function clear() {
@@ -72,6 +52,7 @@ function clear() {
   topDisplay.innerText = ''
   operatorDisplay.innerText = ''
   temp = 0
+  decimalGo = true
 }
 
 function calculate(operation, a, b) {
