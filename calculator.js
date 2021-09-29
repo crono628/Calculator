@@ -1,112 +1,93 @@
-const btn = document.querySelectorAll('.btn');
-const upper = document.querySelector('.upper')
-const lower = document.querySelector('.lower')
-const clearBtn = document.querySelector('#clearBtn');
-const equalsBtn = document.querySelectorAll('#equalsBtn');
-const operatorBtn = document.querySelectorAll('.operatorBtn');
-const zero = document.querySelector('#decimal', '#0')
+const buttons = document.querySelectorAll('button')
+const bottomDisplay = document.querySelector('.bottom-display')
+const operatorDisplay = document.querySelector('.operator')
+const topDisplay = document.querySelector('.digits')
+const operatorArray = ['+', '-', '*', '/']
+let temp = 0
 
-let ready = false;
-let display = [];
-let hold = [];
-let calculation = [];
-let operand = [];
-
-function notReady() {
-  ready = false;
-}
-
-function isReady() {
-  ready = true;
-}
-
-function allClear() {
-  hold = [];
-  display = [];
-  calculation = [];
-  operand = [];
-  notReady();
-}
-
-
-
-btn.forEach((button) => {
+buttons.forEach(button => {
   button.addEventListener('click', () => {
-    display.push(button.textContent);
-    lower.textContent = display.join('')
-    isReady();
-  });
-});
-
-operatorBtn.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (ready == false) {
-      return;
+    let buttonData = button.dataset.btn
+    let calcData = button.dataset.calc
+    bottomDisplay.innerText += buttonData
+    let currentNumber = bottomDisplay.innerText
+    let previousNumber = topDisplay.innerText
+    let operator = operatorDisplay.innerText
+    if (buttonData === 'c') {
+      clear()
     }
-    if (hold[0]) {
-      display.push(hold[0])
-      calculation.push(button.textContent)
-      display.push(button.textContent);
-      upper.textContent = display.join('')
-      lower.textContent = '';
-      lower.textContent = doMath(calculation[0], hold[0], operand[1])
-      hold = []
-      operand.push(display.join(''))
-      display = [];
-      notReady();
-      console.log(hold);
-      console.log(calculation);
-      console.log(operand);
-      console.log(display);
-    } else {
-      operand.push(display.join(''))
-      display.push(button.textContent);
-      calculation.push(button.textContent)
-      upper.textContent = display.join('');
-      lower.textContent = '';
-      display = [];
-      notReady();
+    if (operatorArray.includes(calcData)) {
+      if (bottomDisplay.innerText == 'ERROR') {
+        return
+      } else if (!operator) {
+        topDisplay.innerText = bottomDisplay.innerText
+        operatorDisplay.innerText = calcData
+        bottomDisplay.innerText = ''
+      }
+    }
+    if (calcData === '=') {
+      if (previousNumber && currentNumber) {
+        temp = calculate(operator, previousNumber, currentNumber)
+        bottomDisplay.innerText = Math.round(temp * 10000) / 10000
+        topDisplay.innerText = ''
+        operatorDisplay.innerText = ''
+        console.log(typeof currentNumber)
+      }
     }
   })
 })
 
-clearBtn.addEventListener('click', () => {
-  upper.textContent = '';
-  lower.textContent = '';
-  allClear()
-});
+document.addEventListener('keydown', (e) => {
+  let currentNumber = bottomDisplay.innerText
+  let previousNumber = topDisplay.innerText
+  let operator = operatorDisplay.innerText
+  if (e.key >= 0 && e.key <= 9) {
+    return bottomDisplay.innerText += e.key
+  }
+  if (e.key == 'Backspace') {
+    clear()
+  }
+  if (operatorArray.includes(e.key)) {
+    if (bottomDisplay.innerText == 'ERROR') {
+      return
+    } else if (!operator) {
+      topDisplay.innerText = bottomDisplay.innerText
+      operatorDisplay.innerText = e.key
+      bottomDisplay.innerText = ''
+    }
+  }
+  if (e.key === 'Enter') {
+    if (previousNumber && currentNumber) {
+      temp = calculate(operator, previousNumber, currentNumber)
+      bottomDisplay.innerText = Math.round(temp * 10000) / 10000
+      topDisplay.innerText = ''
+      operatorDisplay.innerText = ''
+      console.log(typeof currentNumber)
+    }
+  }
+})
 
-equalsBtn.forEach((button) => {
-  button.addEventListener('click', () => {
-    operand.push(display.join(''))
-    upper.textContent = ''
-    lower.textContent = doMath(calculation[0], operand[0], operand[1])
-    hold.push(lower.textContent)
-    display = [];
-    calculation = [];
-    operand = [];
-  })
-});
+function clear() {
+  bottomDisplay.innerText = ''
+  topDisplay.innerText = ''
+  operatorDisplay.innerText = ''
+  temp = 0
+}
 
-let add = (a, b) => parseFloat(a) + parseFloat(b);
-let subtract = (a, b) => parseFloat(a) - parseFloat(b);
-let multiply = (a, b) => parseFloat(a) * parseFloat(b);
-let divide = (a, b) => parseFloat(a) / parseFloat(b);
-
-let doMath = function (operator, a, b) {
-  if (calculation[0] && operand[0]) {
-    switch (operator) {
+function calculate(operation, a, b) {
+  if (a && b) {
+    switch (operation) {
       case '+':
-        return add(a, b);
+        return parseFloat(a) + parseFloat(b)
       case '-':
-        return subtract(a, b);
+        return parseFloat(a) - parseFloat(b)
       case '*':
-        return multiply(a, b);
+        return parseFloat(a) * parseFloat(b)
       case '/':
         if (b == 0) {
-          return 'ERROR';
+          return 'ERROR'
         } else {
-          return divide(a, b);
+          return parseFloat(a) / parseFloat(b)
         }
     }
   }
